@@ -129,42 +129,34 @@
 <script src="./supabase-config.js"></script>
 <script>
 (function () {
-  const form = document.getElementById('waitlist-form');
-  if (!form) return;
-
-  const cfg = window.SUPABASE_CONFIG || {};
+  var cfg = window.SUPABASE_CONFIG || {};
   if (!cfg.url || !cfg.anonKey) {
     console.error('Missing SUPABASE_CONFIG. Add supabase-config.js.');
     return;
   }
 
-  const supabaseClient = supabase.createClient(cfg.url, cfg.anonKey);
+  var supabaseClient = supabase.createClient(cfg.url, cfg.anonKey);
 
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    const emailInputs = form.querySelectorAll('input[type="email"]');
-    let email = '';
-    emailInputs.forEach((input) => {
-      if (!email && input.value && input.value.trim()) email = input.value.trim();
+  function submitEmail(email) {
+    if (!email) { alert('Please enter your email.'); return; }
+    supabaseClient.from('waitlist').insert([{ email }]).then(function (res) {
+      if (res.error) { alert("You're already on the waitlist."); return; }
+      window.location.href = './thanks.html';
     });
+  }
 
-    if (!email) {
-      alert('Please enter your email.');
-      return;
-    }
+  function getEmail() {
+    var input = document.querySelector('#waitlist-form input[type="email"]');
+    return input && input.value && input.value.trim() ? input.value.trim() : '';
+  }
 
-    const { error } = await supabaseClient
-      .from('waitlist')
-      .insert([{ email }]);
-
-    if (error) {
-      alert("You're already on the waitlist.");
-      return;
-    }
-
-    window.location.href = './thanks.html';
-  });
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('#waitlist-form button');
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    submitEmail(getEmail());
+  }, true);
 })();
 </script>
 <!-- waitlist-supabase-end -->
