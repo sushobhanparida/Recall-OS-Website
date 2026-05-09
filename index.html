@@ -137,26 +137,40 @@
 
   var supabaseClient = supabase.createClient(cfg.url, cfg.anonKey);
 
-  function submitEmail(email) {
-    if (!email) { alert('Please enter your email.'); return; }
-    supabaseClient.from('waitlist').insert([{ email }]).then(function (res) {
-      if (res.error) { alert("You're already on the waitlist."); return; }
-      window.location.href = './thanks.html';
+  function attachForm(form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var emailInputs = form.querySelectorAll('input[type="email"]');
+      var email = '';
+      emailInputs.forEach(function (input) {
+        if (!email && input.value && input.value.trim()) email = input.value.trim();
+      });
+
+      if (!email) {
+        alert('Please enter your email.');
+        return;
+      }
+
+      supabaseClient.from('waitlist').insert([{ email }]).then(function (res) {
+        if (res.error) { alert("You're already on the waitlist."); return; }
+        window.location.href = './thanks.html';
+      });
     });
   }
 
-  function getEmail() {
-    var input = document.querySelector('#waitlist-form input[type="email"]');
-    return input && input.value && input.value.trim() ? input.value.trim() : '';
+  function tryAttach() {
+    var form = document.getElementById('waitlist-form');
+    if (form && !form.dataset.wlAttached) {
+      form.dataset.wlAttached = '1';
+      attachForm(form);
+    }
   }
 
-  document.addEventListener('click', function (e) {
-    var btn = e.target.closest('#waitlist-form button');
-    if (!btn) return;
-    e.preventDefault();
-    e.stopPropagation();
-    submitEmail(getEmail());
-  }, true);
+  tryAttach();
+  var obs = new MutationObserver(function () { tryAttach(); });
+  obs.observe(document.body, { childList: true, subtree: true });
+  setTimeout(function () { obs.disconnect(); }, 15000);
 })();
 </script>
 <!-- waitlist-supabase-end -->
