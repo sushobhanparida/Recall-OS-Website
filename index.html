@@ -186,10 +186,11 @@
     var el = document.querySelector('.framer-hwutx9');
     if (el && el.parentNode) el.parentNode.removeChild(el);
   }
-  removeEl();
   var obs = new MutationObserver(function () { removeEl(); });
   obs.observe(document.body, { childList: true, subtree: true });
-  setTimeout(function () { obs.disconnect(); }, 10000);
+  setTimeout(removeEl, 3000);
+  setTimeout(removeEl, 6000);
+  setTimeout(function () { obs.disconnect(); }, 12000);
 })();
 </script>
 <style>
@@ -202,10 +203,12 @@
 (function () {
   function replaceVideo() {
     var els = document.querySelectorAll('#v80dzt');
+    var replaced = 0;
     for (var i = 0; i < els.length; i++) {
       var el = els[i];
       if (!el || el.dataset.placeholderSet) continue;
       el.dataset.placeholderSet = '1';
+      replaced++;
       var img = document.createElement('img');
       img.src = './assets/heroimage.png';
       img.alt = 'RecallOS hero';
@@ -213,18 +216,21 @@
       el.innerHTML = '';
       el.appendChild(img);
     }
-    setTimeout(function () {
-      var imgs = document.querySelectorAll('#v80dzt img');
-      for (var i = 0; i < imgs.length; i++) {
-        imgs[i].style.opacity = '1';
-        imgs[i].style.transform = 'translateY(0)';
-      }
-    }, 300);
+    if (replaced) {
+      setTimeout(function () {
+        var imgs = document.querySelectorAll('#v80dzt img');
+        for (var i = 0; i < imgs.length; i++) {
+          imgs[i].style.opacity = '1';
+          imgs[i].style.transform = 'translateY(0)';
+        }
+      }, 300);
+    }
   }
-  replaceVideo();
   var obs = new MutationObserver(function () { replaceVideo(); });
   obs.observe(document.body, { childList: true, subtree: true });
-  setTimeout(function () { obs.disconnect(); }, 10000);
+  setTimeout(replaceVideo, 3000);
+  setTimeout(replaceVideo, 6000);
+  setTimeout(function () { obs.disconnect(); }, 12000);
 })();
 </script>
 <script src="./image-trail.js"></script>
