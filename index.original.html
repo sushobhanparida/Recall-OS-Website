@@ -116,32 +116,40 @@
 (function () {
   var cfg = window.SUPABASE_CONFIG || {};
   if (!cfg.url || !cfg.anonKey) {
-    console.error('Missing SUPABASE_CONFIG. Add supabase-config.js.');
+    console.error('[Waitlist] Missing SUPABASE_CONFIG.');
     return;
   }
 
   var supabaseClient = supabase.createClient(cfg.url, cfg.anonKey);
 
+  function submitEmail(email) {
+    if (!email) { alert('Please enter your email.'); return; }
+    supabaseClient.from('waitlist').insert([{ email }]).then(function (res) {
+      if (res.error) { alert("You're already on the waitlist."); return; }
+      window.location.href = './thanks.html';
+    });
+  }
+
+  function getEmail(form) {
+    var input = form.querySelector('input[type="email"]');
+    return input && input.value && input.value.trim() ? input.value.trim() : '';
+  }
+
   function attachForm(form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-
-      var emailInputs = form.querySelectorAll('input[type="email"]');
-      var email = '';
-      emailInputs.forEach(function (input) {
-        if (!email && input.value && input.value.trim()) email = input.value.trim();
-      });
-
-      if (!email) {
-        alert('Please enter your email.');
-        return;
-      }
-
-      supabaseClient.from('waitlist').insert([{ email }]).then(function (res) {
-        if (res.error) { alert("You're already on the waitlist."); return; }
-        window.location.href = './thanks.html';
-      });
+      submitEmail(getEmail(form));
     });
+
+    var btn = form.querySelector('button');
+    if (btn && !btn.dataset.wlClick) {
+      btn.dataset.wlClick = '1';
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        submitEmail(getEmail(form));
+      });
+    }
   }
 
   function tryAttach() {
