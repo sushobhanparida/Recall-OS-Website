@@ -181,7 +181,7 @@
       if (el && !el.dataset.placeholderSet) {
         el.dataset.placeholderSet = '1';
         var img = document.createElement('img');
-        img.src = './assets/heroimage.png';
+        img.src = window.innerWidth <= 809 ? './assets/heroimage-mb.png' : './assets/heroimage.png';
         img.alt = 'RecallOS hero';
         img.style.cssText = 'width:100%;height:auto;display:block;border-radius:10px;opacity:0;transform:translateY(24px);transition:opacity 1s ease,transform 1s ease';
         el.innerHTML = '';
