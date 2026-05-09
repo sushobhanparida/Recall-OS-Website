@@ -157,6 +157,16 @@
             if (!event.target.closest("#yX81KeM1i")) return;
             navigator.clipboard?.writeText(shareUrl);
         }, true);
+
+        const fixUrlText = () => {
+            document.querySelectorAll("p, span, a, div, .framer-text").forEach((el) => {
+                if (el.textContent.includes("recallos.framer.website")) {
+                    el.textContent = el.textContent.replace("recallos.framer.website", "recallos.in");
+                }
+            });
+        };
+        setTimeout(fixUrlText, 2000);
+        setTimeout(fixUrlText, 4000);
     })();
     </script>
 
