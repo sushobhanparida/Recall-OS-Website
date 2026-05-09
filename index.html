@@ -178,26 +178,36 @@
 }
 </style>
 <script>
-setTimeout(function () {
-  var els = document.querySelectorAll('#v80dzt');
-  for (var i = 0; i < els.length; i++) {
-    var el = els[i];
-    if (el && !el.dataset.placeholderSet) {
-      el.dataset.placeholderSet = '1';
-      var img = document.createElement('img');
-      img.src = './assets/heroimage.png';
-      img.alt = 'RecallOS hero';
-      img.style.cssText = 'width:100%;height:auto;display:block;border-radius:10px';
-      el.innerHTML = '';
-      el.appendChild(img);
+(function () {
+  function replaceVideo() {
+    var els = document.querySelectorAll('#v80dzt');
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      if (el && !el.dataset.placeholderSet) {
+        el.dataset.placeholderSet = '1';
+        var img = document.createElement('img');
+        img.src = './assets/heroimage.png';
+        img.alt = 'RecallOS hero';
+        img.style.cssText = 'width:100%;height:auto;display:block;border-radius:10px;opacity:0;transform:translateY(24px);transition:opacity 1s ease,transform 1s ease';
+        el.innerHTML = '';
+        el.appendChild(img);
+        (function (im) {
+          setTimeout(function () {
+            im.style.opacity = '1';
+            im.style.transform = 'translateY(0)';
+          }, 300);
+        })(img);
+      }
     }
   }
-}, 1000);
+  replaceVideo();
+  setTimeout(replaceVideo, 1000);
+})();
 </script>
 <script src="./image-trail.js"></script>
 <script src="./trail-images.js"></script>
 <script>
-setTimeout(function () {
+(function () {
   if (!window.ImageTrail) return;
   var c = document.createElement('div');
   c.id = 'trail-overlay';
@@ -222,7 +232,7 @@ setTimeout(function () {
     borderRadius: 18,
     content: ''
   });
-}, 2000);
+})();
 </script>
 
 </body>
