@@ -197,6 +197,36 @@ setTimeout(function () {
   }
 }, 5000);
 </script>
+<script src="./image-trail.js"></script>
+<script src="./trail-images.js"></script>
+<script>
+setTimeout(function () {
+  if (!window.ImageTrail) return;
+  var c = document.createElement('div');
+  c.id = 'trail-overlay';
+  c.style.cssText = 'position:fixed;inset:0;z-index:999999;pointer-events:none;overflow:hidden';
+  document.body.appendChild(c);
+  var images = window.__trailImages && window.__trailImages.length
+    ? window.__trailImages
+    : [
+        { src: 'https://framerusercontent.com/images/GfGkADagM4KEibNcIiRUWlfrR0.jpg', alt: 'Trail Image' },
+        { src: 'https://framerusercontent.com/images/aNsAT3jCvt4zglbWCUoFe33Q.jpg', alt: 'Trail Image' },
+        { src: 'https://framerusercontent.com/images/BYnxEV1zjYb9bhWh1IwBZ1ZoS60.jpg', alt: 'Trail Image' },
+        { src: 'https://framerusercontent.com/images/2uTNEj5aTl2K3NJaEFWMbnrA.jpg', alt: 'Trail Image' },
+        { src: 'https://framerusercontent.com/images/f9RiWoNpmlCMqVRIHz8l8wYfeI.jpg', alt: 'Trail Image' }
+      ];
+  ImageTrail(c, {
+    images: images,
+    zoneElement: '#v80dzt',
+    trailPattern: 'wavy',
+    maxTrailImages: 8,
+    fadeDelay: 1200,
+    backgroundColor: 'transparent',
+    borderRadius: 18,
+    content: ''
+  });
+}, 5000);
+</script>
 
 </body>
 </html>
