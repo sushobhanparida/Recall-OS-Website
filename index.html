@@ -142,6 +142,8 @@
     supabaseClient.from('waitlist').insert([{ email }]).then(function (res) {
       if (res.error) { alert("You're already on the waitlist."); return; }
       window.location.href = './thanks.html';
+    }).catch(function (err) {
+      alert('Error joining waitlist: ' + err.message);
     });
   }
 
@@ -151,22 +153,24 @@
   }
 
   function attachForm(form) {
+    form.onsubmit = function () { return false; };
     if (form._wlSubmit) form.removeEventListener('submit', form._wlSubmit);
     form._wlSubmit = function (e) {
       e.preventDefault();
+      e.stopPropagation();
       submitEmail(getEmail(form));
     };
     form.addEventListener('submit', form._wlSubmit);
 
-    var btn = form.querySelector('button');
-    if (btn) {
+    form.querySelectorAll('button').forEach(function (btn) {
+      btn.type = 'button';
       if (btn._wlClick) btn.removeEventListener('click', btn._wlClick);
       btn._wlClick = function (e) {
         e.stopImmediatePropagation();
         submitEmail(getEmail(form));
       };
       btn.addEventListener('click', btn._wlClick);
-    }
+    });
   }
 
   function tryAttach() {
