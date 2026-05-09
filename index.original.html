@@ -136,35 +136,41 @@
     return input && input.value && input.value.trim() ? input.value.trim() : '';
   }
 
-  var form = document.getElementById('waitlist-form');
-  if (!form) { console.error('[Waitlist] Form not found'); return; }
+  var pending = setInterval(function () {
+    var f = document.getElementById('waitlist-form');
+    if (!f || f._wlReady) return;
+    f._wlReady = 1;
 
-  form.querySelectorAll('button').forEach(function (btn) {
-    btn.type = 'button';
-    btn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      submitEmail(getEmail(form));
+    f.querySelectorAll('button').forEach(function (btn) {
+      btn.type = 'button';
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        submitEmail(getEmail(f));
+      });
     });
-  });
 
-  form.querySelectorAll('input[type="email"]').forEach(function (inp) {
-    inp.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') { e.preventDefault(); submitEmail(getEmail(form)); }
+    f.querySelectorAll('input[type="email"]').forEach(function (inp) {
+      inp.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); submitEmail(getEmail(f)); }
+      });
     });
-  });
+  }, 300);
 
   document.addEventListener('submit', function (e) {
     var el = e.target;
     while (el) {
-      if (el === form) {
+      if (el.id === 'waitlist-form' || el.getAttribute && el.getAttribute('id') === 'waitlist-form') {
         e.preventDefault();
         e.stopPropagation();
-        submitEmail(getEmail(form));
+        var f = document.getElementById('waitlist-form');
+        if (f) submitEmail(getEmail(f));
         return;
       }
       el = el.parentElement;
     }
   }, true);
+
+  setTimeout(function () { clearInterval(pending); }, 20000);
 })();
 </script>
 <!-- waitlist-supabase-end -->
