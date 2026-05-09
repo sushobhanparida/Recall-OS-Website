@@ -139,20 +139,23 @@
 </div>
 	<!-- Start of bodyEnd -->
     <script>
-    (() => {
-        var el = document.querySelector(".framer-16z4ptk p");
-        setTimeout(function fix() {
-            if (el && el.textContent.indexOf("framer.website") >= 0) el.textContent = "https://recallos.in/";
-            setTimeout(fix, 2000);
-        }, 500);
-        document.addEventListener("click", function(e) {
-            if (e.target.closest("#yX81KeM1i")) {
-                e.stopImmediatePropagation();
-                if (el) el.textContent = "https://recallos.in/";
-                navigator.clipboard.writeText("https://recallos.in/");
-            }
-        }, true);
-    })();
+    var url = "https://recallos.in/";
+    function replaceCopyButton() {
+        var copySection = document.querySelector(".framer-xnbj0a-container");
+        if (!copySection) return;
+        if (copySection.querySelector("#nativeCopy")) return;
+        copySection.innerHTML = '<div style="display:flex;align-items:center;gap:8px;height:48px;width:100%;border:1px solid #1e1e1e;background:#141414;border-radius:12px;padding:0 12px;cursor:pointer" id="nativeCopy">' +
+            '<span style="flex:1;font-family:Inter,sans-serif;font-size:14px;color:#9e9e9e;letter-spacing:.01em;line-height:24px">' + url + '</span>' +
+            '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0"><path d="M12.708 7.292V3.333c0-.276-.109-.541-.305-.736s-.46-.305-.736-.305H3.333c-.276 0-.541.109-.736.305s-.305.46-.305.736v8.334c0 .276.109.541.305.736s.46.305.736.305h3.959M8.333 7.292h8.334c.276 0 .541.109.736.305s.305.46.305.736v8.334c0 .276-.109.541-.305.736s-.46.305-.736.305H8.333c-.575-.001-1.04-.466-1.041-1.041V8.333c0-.276.109-.541.305-.736s.46-.305.736-.305z" stroke="#9e9e9e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
+        copySection.querySelector("#nativeCopy").addEventListener("click", function() {
+            navigator.clipboard.writeText(url);
+            var s = copySection.querySelector("span");
+            var t = s.textContent;
+            s.textContent = "Copied!";
+            setTimeout(function() { s.textContent = t; }, 1500);
+        });
+    }
+    setTimeout(function() { replaceCopyButton(); setInterval(replaceCopyButton, 3000); }, 1500);
     </script>
     <!-- End of bodyEnd -->
 </body>
