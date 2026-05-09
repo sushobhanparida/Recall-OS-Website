@@ -134,9 +134,13 @@
     console.error('[Waitlist] Missing SUPABASE_CONFIG.');
     return;
   }
+  var form = document.getElementById('waitlist-form');
+  if (!form) return;
   var supabaseClient = supabase.createClient(cfg.url, cfg.anonKey);
-
-  function submitEmail(email) {
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var input = form.querySelector('input[type="email"]');
+    var email = input && input.value && input.value.trim() ? input.value.trim() : '';
     if (!email) { alert('Please enter your email.'); return; }
     supabaseClient.from('waitlist').insert([{ email }]).then(function (res) {
       if (res.error) { alert("You're already on the waitlist."); return; }
@@ -144,38 +148,7 @@
     }).catch(function (err) {
       alert('Error joining waitlist: ' + err.message);
     });
-  }
-
-  function getEmail(form) {
-    var input = form.querySelector('input[type="email"]');
-    return input && input.value && input.value.trim() ? input.value.trim() : '';
-  }
-
-  function attach(f) {
-    if (!f) return;
-    f.querySelectorAll('button').forEach(function (btn) {
-      btn.type = 'button';
-      if (btn._wl) return;
-      btn._wl = 1;
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        submitEmail(getEmail(f));
-      });
-    });
-    f.querySelectorAll('input[type="email"]').forEach(function (inp) {
-      if (inp._wl) return;
-      inp._wl = 1;
-      inp.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') { e.preventDefault(); submitEmail(getEmail(f)); }
-      });
-    });
-  }
-
-  function poll() { attach(document.getElementById('waitlist-form')); }
-
-  setTimeout(poll, 3000);
-  var interval = setInterval(poll, 2000);
-  setTimeout(function () { clearInterval(interval); }, 30000);
+  });
 })();
 </script>
 <!-- waitlist-supabase-end -->
