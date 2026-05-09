@@ -170,7 +170,7 @@
 </script>
 <!-- waitlist-supabase-end -->
 
-<style>.framer-hwutx9{display:none!important}</style>
+<style>.framer-hwutx9{display:none!important}#v80dzt{visibility:hidden!important}</style>
 <style>
 @media (max-width: 809.98px) {
   #v80dzt { max-width: 100% !important; }
@@ -184,6 +184,7 @@ setTimeout(function () {
     var el = els[i];
     if (!el || el.dataset.placeholderSet) continue;
     el.dataset.placeholderSet = '1';
+    el.style.visibility = 'visible';
     var img = document.createElement('img');
     img.src = './assets/heroimage.png';
     img.alt = 'RecallOS hero';
