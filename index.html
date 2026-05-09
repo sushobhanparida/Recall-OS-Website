@@ -173,9 +173,6 @@
 
   function poll() { attach(document.getElementById('waitlist-form')); }
 
-  poll();
-  setTimeout(poll, 500);
-  setTimeout(poll, 1500);
   setTimeout(poll, 3000);
   var interval = setInterval(poll, 2000);
   setTimeout(function () { clearInterval(interval); }, 30000);
