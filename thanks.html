@@ -148,6 +148,21 @@
     })();
     </script>
 
+    <script>
+    setTimeout(function poll() {
+        if (document.body.textContent.indexOf("recallos.framer.website") >= 0) {
+            var els = document.querySelectorAll("p, span, a, div, .framer-text");
+            for (var i = 0; i < els.length; i++) {
+                var el = els[i];
+                if (el.textContent && el.textContent.indexOf("recallos.framer.website") >= 0) {
+                    el.textContent = el.textContent.replace(/recallos\.framer\.website/g, "recallos.in");
+                }
+            }
+        }
+        setTimeout(poll, 4000);
+    }, 12000);
+    </script>
+
     <!-- End of bodyEnd -->
 </body>
 </html>
