@@ -170,7 +170,7 @@
 </script>
 <!-- waitlist-supabase-end -->
 
-<style>.framer-hwutx9{display:none!important}</style>
+<style>.framer-hwutx9{display:none!important}[id=v80dzt]{min-height:280px}[id=v80dzt] .framer-eQhjL{display:none!important}</style>
 <style>
 @media (max-width: 809.98px) {
   #v80dzt { max-width: 100% !important; }
@@ -178,12 +178,11 @@
 }
 </style>
 <script>
-(function () {
-  function replaceVideo() {
-    var els = document.querySelectorAll('#v80dzt');
-    for (var i = 0; i < els.length; i++) {
-      var el = els[i];
-      if (!el || el.dataset.placeholderSet) continue;
+setTimeout(function () {
+  var els = document.querySelectorAll('#v80dzt');
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    if (el && !el.dataset.placeholderSet) {
       el.dataset.placeholderSet = '1';
       var img = document.createElement('img');
       img.src = './assets/heroimage.png';
@@ -193,9 +192,7 @@
       el.appendChild(img);
     }
   }
-  replaceVideo();
-  setTimeout(replaceVideo, 1000);
-})();
+}, 1000);
 </script>
 <script src="./image-trail.js"></script>
 <script src="./trail-images.js"></script>
