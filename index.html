@@ -170,6 +170,20 @@
 </script>
 <!-- waitlist-supabase-end -->
 
+<script>
+(function () {
+  function removeEl() {
+    var el = document.querySelector('.framer-hwutx9');
+    if (el && el.parentNode) el.parentNode.removeChild(el);
+  }
+  var obs = new MutationObserver(function () { removeEl(); });
+  obs.observe(document.body, { childList: true, subtree: true });
+  setTimeout(removeEl, 3000);
+  setTimeout(removeEl, 6000);
+  setTimeout(function () { obs.disconnect(); }, 12000);
+})();
+</script>
+
 </body>
 </html>
 
