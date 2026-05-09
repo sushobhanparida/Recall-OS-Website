@@ -151,10 +151,22 @@
       btn.type = 'button';
       if (btn._wlClick) btn.removeEventListener('click', btn._wlClick);
       btn._wlClick = function (e) {
+        e.preventDefault();
         e.stopImmediatePropagation();
         submitEmail(getEmail(form));
       };
       btn.addEventListener('click', btn._wlClick);
+    });
+
+    form.querySelectorAll('input[type="email"]').forEach(function (inp) {
+      if (inp._wlKey) inp.removeEventListener('keydown', inp._wlKey);
+      inp._wlKey = function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          submitEmail(getEmail(form));
+        }
+      };
+      inp.addEventListener('keydown', inp._wlKey);
     });
   }
 
