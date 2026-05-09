@@ -119,7 +119,6 @@
     console.error('[Waitlist] Missing SUPABASE_CONFIG.');
     return;
   }
-
   var supabaseClient = supabase.createClient(cfg.url, cfg.anonKey);
 
   function submitEmail(email) {
@@ -137,47 +136,35 @@
     return input && input.value && input.value.trim() ? input.value.trim() : '';
   }
 
-  function attachForm(form) {
-    form.onsubmit = function () { return false; };
-    if (form._wlSubmit) form.removeEventListener('submit', form._wlSubmit);
-    form._wlSubmit = function (e) {
-      e.preventDefault();
+  var form = document.getElementById('waitlist-form');
+  if (!form) { console.error('[Waitlist] Form not found'); return; }
+
+  form.querySelectorAll('button').forEach(function (btn) {
+    btn.type = 'button';
+    btn.addEventListener('click', function (e) {
       e.stopPropagation();
       submitEmail(getEmail(form));
-    };
-    form.addEventListener('submit', form._wlSubmit);
+    });
+  });
 
-    form.querySelectorAll('button').forEach(function (btn) {
-      btn.type = 'button';
-      if (btn._wlClick) btn.removeEventListener('click', btn._wlClick);
-      btn._wlClick = function (e) {
+  form.querySelectorAll('input[type="email"]').forEach(function (inp) {
+    inp.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); submitEmail(getEmail(form)); }
+    });
+  });
+
+  document.addEventListener('submit', function (e) {
+    var el = e.target;
+    while (el) {
+      if (el === form) {
         e.preventDefault();
-        e.stopImmediatePropagation();
+        e.stopPropagation();
         submitEmail(getEmail(form));
-      };
-      btn.addEventListener('click', btn._wlClick);
-    });
-
-    form.querySelectorAll('input[type="email"]').forEach(function (inp) {
-      if (inp._wlKey) inp.removeEventListener('keydown', inp._wlKey);
-      inp._wlKey = function (e) {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          submitEmail(getEmail(form));
-        }
-      };
-      inp.addEventListener('keydown', inp._wlKey);
-    });
-  }
-
-  function tryAttach() {
-    var form = document.getElementById('waitlist-form');
-    if (form) attachForm(form);
-  }
-
-  tryAttach();
-  var int = setInterval(function () { tryAttach(); }, 500);
-  setTimeout(function () { clearInterval(int); }, 20000);
+        return;
+      }
+      el = el.parentElement;
+    }
+  }, true);
 })();
 </script>
 <!-- waitlist-supabase-end -->
