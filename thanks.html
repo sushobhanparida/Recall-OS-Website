@@ -141,18 +141,6 @@
     <script>
     (() => {
         const shareUrl = "https://recallos.in/";
-        const removeHiddenFramerElements = () => {
-            document.querySelectorAll(".framer-kil8eu-container, .framer-nq36za, .framer-1fcu6nl, .framer-1xdcuj4-container, .framer-19yylt-container, .framer-14qdbgj-container, [data-us-dpi], [data-us-scale], [data-us-fps]").forEach((node) => {
-                const container = node.closest(".framer-kil8eu-container") || node;
-                container.remove();
-            });
-        };
-
-        removeHiddenFramerElements();
-        new MutationObserver(removeHiddenFramerElements).observe(document.documentElement, {
-            childList: true,
-            subtree: true,
-        });
         document.addEventListener("click", (event) => {
             if (!event.target.closest("#yX81KeM1i")) return;
             navigator.clipboard?.writeText(shareUrl);
