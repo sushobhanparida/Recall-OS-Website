@@ -179,6 +179,7 @@
       if (el.id === 'waitlist-form') {
         e.preventDefault();
         e.stopPropagation();
+        console.log('[WL] blocked submit');
         submitEmail(getEmail(el));
         return;
       }
@@ -188,9 +189,12 @@
   document.addEventListener('click', function (e) {
     for (var el = e.target; el; el = el.parentElement) {
       if (el.id === 'waitlist-form') {
-        if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+        var btn = e.target.closest('[data-reset="button"], button, .framer-FR48t');
+        console.log('[WL] click in form, target:', e.target.tagName, e.target.className, 'btn:', btn ? btn.tagName : 'null');
+        if (btn) {
           e.preventDefault();
           e.stopPropagation();
+          console.log('[WL] intercepted click');
           submitEmail(getEmail(el));
           return;
         }
