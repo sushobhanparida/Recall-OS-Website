@@ -151,20 +151,17 @@
     return input && input.value && input.value.trim() ? input.value.trim() : '';
   }
 
-  var pending = setInterval(function () {
-    var f = document.getElementById('waitlist-form');
+  function attach(f) {
     if (!f) return;
-
     f.querySelectorAll('button').forEach(function (btn) {
+      btn.type = 'button';
       if (btn._wl) return;
       btn._wl = 1;
-      btn.type = 'button';
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
         submitEmail(getEmail(f));
       });
     });
-
     f.querySelectorAll('input[type="email"]').forEach(function (inp) {
       if (inp._wl) return;
       inp._wl = 1;
@@ -172,38 +169,16 @@
         if (e.key === 'Enter') { e.preventDefault(); submitEmail(getEmail(f)); }
       });
     });
-  }, 300);
+  }
 
-  document.addEventListener('submit', function (e) {
-    for (var el = e.target; el; el = el.parentElement) {
-      if (el.id === 'waitlist-form') {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log('[WL] blocked submit');
-        submitEmail(getEmail(el));
-        return;
-      }
-    }
-  }, true);
+  function poll() { attach(document.getElementById('waitlist-form')); }
 
-  document.addEventListener('click', function (e) {
-    for (var el = e.target; el; el = el.parentElement) {
-      if (el.id === 'waitlist-form') {
-        var btn = e.target.closest('[data-reset="button"], button, .framer-FR48t');
-        console.log('[WL] click in form, target:', e.target.tagName, e.target.className, 'btn:', btn ? btn.tagName : 'null');
-        if (btn) {
-          e.preventDefault();
-          e.stopPropagation();
-          console.log('[WL] intercepted click');
-          submitEmail(getEmail(el));
-          return;
-        }
-        return;
-      }
-    }
-  }, true);
-
-  setTimeout(function () { clearInterval(pending); }, 20000);
+  poll();
+  setTimeout(poll, 500);
+  setTimeout(poll, 1500);
+  setTimeout(poll, 3000);
+  var interval = setInterval(poll, 2000);
+  setTimeout(function () { clearInterval(interval); }, 30000);
 })();
 </script>
 <!-- waitlist-supabase-end -->
