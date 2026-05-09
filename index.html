@@ -153,10 +153,11 @@
 
   var pending = setInterval(function () {
     var f = document.getElementById('waitlist-form');
-    if (!f || f._wlReady) return;
-    f._wlReady = 1;
+    if (!f) return;
 
     f.querySelectorAll('button').forEach(function (btn) {
+      if (btn._wl) return;
+      btn._wl = 1;
       btn.type = 'button';
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
@@ -165,6 +166,8 @@
     });
 
     f.querySelectorAll('input[type="email"]').forEach(function (inp) {
+      if (inp._wl) return;
+      inp._wl = 1;
       inp.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') { e.preventDefault(); submitEmail(getEmail(f)); }
       });
@@ -172,16 +175,27 @@
   }, 300);
 
   document.addEventListener('submit', function (e) {
-    var el = e.target;
-    while (el) {
-      if (el.id === 'waitlist-form' || el.getAttribute && el.getAttribute('id') === 'waitlist-form') {
+    for (var el = e.target; el; el = el.parentElement) {
+      if (el.id === 'waitlist-form') {
         e.preventDefault();
         e.stopPropagation();
-        var f = document.getElementById('waitlist-form');
-        if (f) submitEmail(getEmail(f));
+        submitEmail(getEmail(el));
         return;
       }
-      el = el.parentElement;
+    }
+  }, true);
+
+  document.addEventListener('click', function (e) {
+    for (var el = e.target; el; el = el.parentElement) {
+      if (el.id === 'waitlist-form') {
+        if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+          e.preventDefault();
+          e.stopPropagation();
+          submitEmail(getEmail(el));
+          return;
+        }
+        return;
+      }
     }
   }, true);
 
