@@ -136,34 +136,32 @@
   }
 
   function attachForm(form) {
-    form.addEventListener('submit', function (e) {
+    if (form._wlSubmit) form.removeEventListener('submit', form._wlSubmit);
+    form._wlSubmit = function (e) {
       e.preventDefault();
       submitEmail(getEmail(form));
-    });
+    };
+    form.addEventListener('submit', form._wlSubmit);
 
     var btn = form.querySelector('button');
-    if (btn && !btn.dataset.wlClick) {
-      btn.dataset.wlClick = '1';
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
+    if (btn) {
+      if (btn._wlClick) btn.removeEventListener('click', btn._wlClick);
+      btn._wlClick = function (e) {
+        e.stopImmediatePropagation();
         submitEmail(getEmail(form));
-      });
+      };
+      btn.addEventListener('click', btn._wlClick);
     }
   }
 
   function tryAttach() {
     var form = document.getElementById('waitlist-form');
-    if (form && !form.dataset.wlAttached) {
-      form.dataset.wlAttached = '1';
-      attachForm(form);
-    }
+    if (form) attachForm(form);
   }
 
   tryAttach();
-  var obs = new MutationObserver(function () { tryAttach(); });
-  obs.observe(document.body, { childList: true, subtree: true });
-  setTimeout(function () { obs.disconnect(); }, 15000);
+  var int = setInterval(function () { tryAttach(); }, 500);
+  setTimeout(function () { clearInterval(int); }, 20000);
 })();
 </script>
 <!-- waitlist-supabase-end -->
