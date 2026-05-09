@@ -140,14 +140,18 @@
 	<!-- Start of bodyEnd -->
     <script>
     (() => {
-        var shareUrl = "https://recallos.in/";
-        document.addEventListener("click", function(e) {
-            if (e.target.closest("#yX81KeM1i")) navigator.clipboard.writeText(shareUrl);
-        });
-        setTimeout(function() {
-            var el = document.querySelector(".framer-16z4ptk p");
+        var el = document.querySelector(".framer-16z4ptk p");
+        setTimeout(function fix() {
             if (el && el.textContent.indexOf("framer.website") >= 0) el.textContent = "https://recallos.in/";
+            setTimeout(fix, 2000);
         }, 500);
+        document.addEventListener("click", function(e) {
+            if (e.target.closest("#yX81KeM1i")) {
+                e.stopImmediatePropagation();
+                if (el) el.textContent = "https://recallos.in/";
+                navigator.clipboard.writeText("https://recallos.in/");
+            }
+        }, true);
     })();
     </script>
     <!-- End of bodyEnd -->
