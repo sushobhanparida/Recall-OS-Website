@@ -1,0 +1,31 @@
+@font-face {
+  font-family: 'Mango Grotesque';
+  src: url('./assets/fonts/MangoGrotesque-SemiBold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+h1.recallos-tagline {
+  display: flex !important;
+  flex-direction: column;
+  gap: 0;
+  font-family: 'Mango Grotesque', Impact, sans-serif !important;
+  font-size: clamp(80px, 10vw, 132px) !important;
+  font-weight: 600 !important;
+  line-height: .92 !important;
+  letter-spacing: normal !important;
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+h1.recallos-tagline > span {
+  display: block;
+  white-space: nowrap;
+}
+
+@media (max-width: 809px) {
+  h1.recallos-tagline {
+    font-size: clamp(60px, 19vw, 100px) !important;
+  }
+}
