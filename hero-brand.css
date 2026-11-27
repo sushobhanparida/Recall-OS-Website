@@ -12,11 +12,10 @@
 }
 
 h1.recallos-tagline {
-  display: flex !important;
-  flex-direction: column;
-  gap: 0;
+  display: block !important;
+  white-space: nowrap;
   font-family: 'Mango Grotesque', Impact, sans-serif !important;
-  font-size: 80px !important;
+  font-size: clamp(28px, 10.5vw, 64px) !important;
   font-weight: 900 !important;
   line-height: 1.02 !important;
   letter-spacing: normal !important;
@@ -25,7 +24,7 @@ h1.recallos-tagline {
 }
 
 h1.recallos-tagline > span {
-  display: block;
+  display: inline;
   white-space: nowrap;
 }
 
@@ -147,16 +146,4 @@ h3 {
 h4, h5, h6,
 #recallos-second-brain .rsb-card b {
   font-size: 30px !important;
-}
-
-@media (min-width: 810px) and (max-width: 1199px) {
-  h1.recallos-tagline {
-    font-size: 72px !important;
-  }
-}
-
-@media (max-width: 809px) {
-  h1.recallos-tagline {
-    font-size: clamp(52px, 16vw, 64px) !important;
-  }
 }
