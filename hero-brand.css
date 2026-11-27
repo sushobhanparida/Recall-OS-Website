@@ -10,11 +10,11 @@ h1.recallos-tagline {
   display: flex !important;
   flex-direction: column;
   gap: 0;
-  font-family: Inter, Arial, sans-serif !important;
-  font-size: 40px !important;
-  font-weight: 500 !important;
-  line-height: 1.2 !important;
-  letter-spacing: -.04em !important;
+  font-family: 'Mango Grotesque', Impact, sans-serif !important;
+  font-size: 80px !important;
+  font-weight: 900 !important;
+  line-height: 1.02 !important;
+  letter-spacing: normal !important;
   text-align: center !important;
   margin: 0 !important;
 }
@@ -26,11 +26,11 @@ h1.recallos-tagline > span {
 
 h1.recallos-tagline .recallos-saved {
   font-family: 'Mango Grotesque', Impact, sans-serif !important;
-  font-size: 1.5em;
-  font-weight: 600;
+  font-size: inherit;
+  font-weight: inherit;
   line-height: 1;
   letter-spacing: normal;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .recallos-phone {
@@ -98,12 +98,12 @@ h4, h5, h6,
 
 @media (min-width: 810px) and (max-width: 1199px) {
   h1.recallos-tagline {
-    font-size: 36px !important;
+    font-size: 72px !important;
   }
 }
 
 @media (max-width: 809px) {
   h1.recallos-tagline {
-    font-size: 32px !important;
+    font-size: clamp(52px, 16vw, 64px) !important;
   }
 }
