@@ -17,6 +17,16 @@
       image.before(phone);
       phone.appendChild(screen);
       screen.appendChild(image);
+      function revealPhone() {
+        var decoded = image.decode ? image.decode() : Promise.resolve();
+        decoded.catch(function () {}).then(function () {
+          requestAnimationFrame(function () {
+            phone.classList.add('recallos-phone-ready');
+          });
+        });
+      }
+      if (image.complete && image.naturalWidth) revealPhone();
+      else image.addEventListener('load', revealPhone, { once: true });
     });
   }
 

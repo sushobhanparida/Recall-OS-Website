@@ -150,15 +150,9 @@
         img.alt = 'RecallOS app showing screenshot collections, quick actions, search, notes, tasks and stacks';
         img.width = 624;
         img.height = 1280;
-        img.style.cssText = 'width:min(100%,440px);height:auto;display:block;margin:0 auto;border-radius:24px;opacity:0;transform:translateY(24px);transition:opacity 1s ease,transform 1s ease';
+        img.style.cssText = 'width:min(100%,440px);height:auto;display:block;margin:0 auto;border-radius:24px';
         el.innerHTML = '';
         el.appendChild(img);
-        (function (im) {
-          setTimeout(function () {
-            im.style.opacity = '1';
-            im.style.transform = 'translateY(0)';
-          }, 300);
-        })(img);
       }
     }
   }
