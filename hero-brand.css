@@ -39,6 +39,7 @@ h1.recallos-tagline .recallos-saved {
 
 .recallos-phone {
   position: relative;
+  container-type: inline-size;
   box-sizing: border-box;
   width: min(82%, 320px);
   margin: 0 auto;
@@ -78,7 +79,9 @@ h1.recallos-tagline .recallos-saved {
   border-radius: 36px;
   background-color: #000;
   background-image: radial-gradient(circle, rgba(255,255,255,.18) 1px, transparent 1.4px);
-  background-size: 17px 17px;
+  /* The screenshot has 18 dot columns, with its first row at y=22/624. */
+  background-size: 5.55556cqw 5.55556cqw;
+  background-position: -2.77778cqw calc(32px + .74786cqw);
 }
 
 .recallos-phone-status {
@@ -86,7 +89,7 @@ h1.recallos-tagline .recallos-saved {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 40px;
+  height: 32px;
   padding: 0 24px;
   color: #fff;
   font: 600 13px/1 Inter, Arial, sans-serif;
@@ -99,7 +102,7 @@ h1.recallos-tagline .recallos-saved {
 
 .recallos-phone-island {
   position: absolute;
-  top: 9px;
+  top: 5px;
   left: 50%;
   width: 80px;
   height: 23px;
