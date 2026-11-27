@@ -69,10 +69,58 @@ h1.recallos-tagline .recallos-saved {
   background: #626369;
 }
 
-.recallos-phone > img {
+.recallos-phone-screen {
+  overflow: hidden;
+  border-radius: 36px;
+  background-color: #000;
+  background-image: radial-gradient(circle, rgba(255,255,255,.18) 1px, transparent 1.4px);
+  background-size: 17px 17px;
+}
+
+.recallos-phone-status {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 24px;
+  color: #fff;
+  font: 600 13px/1 Inter, Arial, sans-serif;
+}
+
+.recallos-phone-status svg {
+  width: 55px;
+  height: 15px;
+}
+
+.recallos-phone-island {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  width: 80px;
+  height: 23px;
+  transform: translateX(-50%);
+  border-radius: 20px;
+  background: #111;
+}
+
+.recallos-phone-island::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  width: 7px;
+  height: 7px;
+  border: 2px solid #1e2939;
+  border-radius: 50%;
+  background: #366181;
+  box-sizing: border-box;
+}
+
+.recallos-phone-screen > img {
   width: 100% !important;
   height: auto !important;
-  border-radius: 36px !important;
+  border-radius: 0 !important;
 }
 
 h2, h3, h4, h5, h6,
