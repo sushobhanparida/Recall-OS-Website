@@ -24,6 +24,27 @@ h1.recallos-tagline > span {
   white-space: nowrap;
 }
 
+h2, h3, h4, h5, h6,
+#recallos-second-brain .rsb-card b {
+  font-family: 'Mango Grotesque', Impact, sans-serif !important;
+  font-weight: 600 !important;
+  letter-spacing: normal !important;
+  line-height: 1.05 !important;
+}
+
+h2 {
+  font-size: clamp(40px, 5vw, 60px) !important;
+}
+
+h3 {
+  font-size: clamp(32px, 4vw, 44px) !important;
+}
+
+h4, h5, h6,
+#recallos-second-brain .rsb-card b {
+  font-size: 30px !important;
+}
+
 @media (max-width: 809px) {
   h1.recallos-tagline {
     font-size: clamp(60px, 19vw, 100px) !important;
