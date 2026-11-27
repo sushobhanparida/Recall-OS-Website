@@ -24,6 +24,36 @@ h1.recallos-tagline > span {
   white-space: nowrap;
 }
 
+.recallos-phone {
+  position: relative;
+  box-sizing: border-box;
+  width: min(82%, 320px);
+  margin: 0 auto;
+  padding: 16px 8px 12px;
+  border: 1px solid #515157;
+  border-radius: 40px;
+  background: #18181b;
+  box-shadow: inset 0 0 0 3px #29292e, 0 24px 64px rgba(0, 0, 0, .5);
+}
+
+.recallos-phone::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 44px;
+  height: 4px;
+  transform: translateX(-50%);
+  border-radius: 4px;
+  background: #050506;
+}
+
+.recallos-phone > img {
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 30px !important;
+}
+
 h2, h3, h4, h5, h6,
 #recallos-second-brain .rsb-card b {
   font-family: 'Mango Grotesque', Impact, sans-serif !important;
