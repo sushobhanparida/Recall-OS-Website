@@ -17,6 +17,8 @@ h1.recallos-tagline {
   font-family: 'Mango Grotesque', Impact, sans-serif !important;
   font-size: clamp(28px, 10.5vw, 64px) !important;
   font-weight: 900 !important;
+  -webkit-text-stroke: .5px currentColor;
+  paint-order: stroke fill;
   line-height: 1.02 !important;
   letter-spacing: normal !important;
   text-align: center !important;
@@ -148,7 +150,9 @@ h1.recallos-tagline .recallos-saved {
 h2, h3, h4, h5, h6,
 #recallos-second-brain .rsb-card b {
   font-family: 'Mango Grotesque', Impact, sans-serif !important;
-  font-weight: 600 !important;
+  font-weight: 900 !important;
+  -webkit-text-stroke: .5px currentColor;
+  paint-order: stroke fill;
   letter-spacing: normal !important;
   line-height: 1.05 !important;
 }
