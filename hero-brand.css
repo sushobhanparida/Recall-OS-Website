@@ -24,6 +24,15 @@ h1.recallos-tagline > span {
   white-space: nowrap;
 }
 
+h1.recallos-tagline .recallos-saved {
+  font-family: 'Mango Grotesque', Impact, sans-serif !important;
+  font-size: 1.5em;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: uppercase;
+}
+
 .recallos-phone {
   position: relative;
   box-sizing: border-box;
