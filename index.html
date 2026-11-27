@@ -131,48 +131,8 @@
     <!-- End of bodyEnd -->
 
 <!-- waitlist-supabase-start -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js"></script>
-<script>
-(function () {
-  const form = document.getElementById('waitlist-form');
-  if (!form) return;
-
-  const cfg = window.SUPABASE_CONFIG || {};
-  if (!cfg.url || !cfg.anonKey) {
-    console.error('Missing SUPABASE_CONFIG. Add supabase-config.js.');
-    return;
-  }
-
-  const supabaseClient = supabase.createClient(cfg.url, cfg.anonKey);
-
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    const emailInputs = form.querySelectorAll('input[type="email"]');
-    let email = '';
-    emailInputs.forEach((input) => {
-      if (!email && input.value && input.value.trim()) email = input.value.trim();
-    });
-
-    if (!email) {
-      alert('Please enter your email.');
-      return;
-    }
-
-    const { error } = await supabaseClient
-      .from('waitlist')
-      .insert([{ email }]);
-
-    if (error) {
-      alert("You're already on the waitlist.");
-      return;
-    }
-
-    window.location.href = './thanks.html';
-  });
-})();
-</script>
+<script src="./waitlist.js"></script>
 <!-- waitlist-supabase-end -->
 
 <style>.framer-hwutx9{display:none!important}[id=v80dzt]{min-height:200px}[id=v80dzt] .framer-eQhjL{display:none!important}a[href="https://www.cmd.supply/"] { display: none !important; }</style>
