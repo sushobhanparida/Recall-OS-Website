@@ -6,6 +6,11 @@
   font-display: swap;
 }
 
+/* Keep the background embed's badge from overlapping the footer copyright. */
+.framer-kil8eu-container a[href^="https://unicorn.studio"] {
+  display: none !important;
+}
+
 h1.recallos-tagline {
   display: flex !important;
   flex-direction: column;
